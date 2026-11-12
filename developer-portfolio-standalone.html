@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Portfolio of an independent web developer creating modern, responsive websites for businesses.">
+  <title>Your Name | Web Developer</title>
+  <style>
+    :root {
+      --bg: #090d18;
+      --panel: #111827;
+      --panel-2: #151e30;
+      --text: #f4f7fb;
+      --muted: #a5b0c2;
+      --line: rgba(255,255,255,.10);
+      --accent: #77e0c0;
+      --accent-2: #a4f2dc;
+      --max: 1120px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 82% 8%, rgba(72, 176, 150, .13), transparent 27rem),
+        radial-gradient(circle at 5% 35%, rgba(68, 104, 190, .10), transparent 26rem),
+        var(--bg);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+    }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
+    .container { width: min(var(--max), calc(100% - 40px)); margin: 0 auto; }
+    .nav-wrap {
+      position: sticky; top: 0; z-index: 10;
+      backdrop-filter: blur(18px);
+      background: rgba(9,13,24,.82);
+      border-bottom: 1px solid var(--line);
+    }
+    nav { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { font-weight: 800; letter-spacing: -.04em; font-size: 1.12rem; }
+    .brand span { color: var(--accent); }
+    .nav-links { display: flex; align-items: center; gap: 28px; color: var(--muted); font-size: .92rem; }
+    .nav-links a:hover, .text-link:hover { color: var(--accent); }
+    .nav-cta, .button {
+      display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+      border-radius: 999px; padding: 12px 19px; font-weight: 700;
+      transition: transform .2s ease, background .2s ease, border-color .2s ease;
+    }
+    .nav-cta, .button.primary { background: var(--accent); color: #071510; }
+    .nav-cta:hover, .button:hover { transform: translateY(-2px); }
+    .button.secondary { border: 1px solid var(--line); color: var(--text); background: rgba(255,255,255,.025); }
+    .menu-toggle { display: none; border: 1px solid var(--line); color: var(--text); background: var(--panel); border-radius: 10px; padding: 8px 11px; }
+    .hero { padding: 112px 0 96px; }
+    .hero-grid { display: grid; grid-template-columns: 1.25fr .75fr; align-items: center; gap: 56px; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 9px; color: var(--accent); font-size: .82rem; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 16px var(--accent); }
+    h1 { margin: 22px 0 20px; font-size: clamp(2.8rem, 6vw, 5.3rem); line-height: 1.02; letter-spacing: -.065em; max-width: 780px; }
+    h1 span { color: var(--accent); }
+    .hero-copy { max-width: 610px; color: var(--muted); font-size: 1.1rem; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 13px; margin-top: 32px; }
+    .hero-card {
+      min-height: 340px; border: 1px solid var(--line); border-radius: 28px;
+      background: linear-gradient(145deg, rgba(119,224,192,.12), rgba(21,30,48,.92) 55%);
+      padding: 28px; display: flex; flex-direction: column; justify-content: space-between;
+      box-shadow: 0 25px 80px rgba(0,0,0,.22);
+    }
+    .code-window { border: 1px solid rgba(255,255,255,.12); border-radius: 15px; background: rgba(5,10,19,.55); overflow: hidden; }
+    .window-bar { display: flex; gap: 6px; padding: 12px 14px; border-bottom: 1px solid var(--line); }
+    .window-bar i { width: 8px; height: 8px; border-radius: 50%; background: #68758a; }
+    .code-lines { padding: 18px; color: #cbd5e1; font: .82rem/2 ui-monospace, SFMono-Regular, Menlo, monospace; }
+    .code-lines .green { color: var(--accent); }
+    .code-lines .blue { color: #8db8ff; }
+    .card-caption { color: var(--muted); font-size: .88rem; margin-top: 22px; }
+    section { padding: 82px 0; }
+    .section-head { display: flex; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: 34px; }
+    .kicker { color: var(--accent); text-transform: uppercase; letter-spacing: .14em; font-weight: 800; font-size: .76rem; }
+    h2 { margin: 8px 0 0; font-size: clamp(2rem, 4vw, 3rem); letter-spacing: -.05em; line-height: 1.1; }
+    .section-intro { color: var(--muted); max-width: 480px; margin: 0; }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+    .panel { background: rgba(17,24,39,.78); border: 1px solid var(--line); border-radius: 22px; padding: 28px; }
+    .panel p { color: var(--muted); margin-bottom: 0; }
+    .skills { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+    .chip { padding: 8px 12px; border-radius: 999px; background: rgba(119,224,192,.09); border: 1px solid rgba(119,224,192,.18); color: var(--accent-2); font-size: .84rem; }
+    .services-grid, .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .service-card, .project-card { background: rgba(17,24,39,.78); border: 1px solid var(--line); border-radius: 22px; overflow: hidden; }
+    .service-card { padding: 25px; }
+    .icon-box { width: 46px; height: 46px; display: grid; place-items: center; border-radius: 14px; background: rgba(119,224,192,.11); color: var(--accent); font-size: 1.3rem; }
+    h3 { margin: 18px 0 8px; font-size: 1.12rem; }
+    .service-card p, .project-body p { color: var(--muted); font-size: .94rem; margin: 0; }
+    .project-visual { min-height: 190px; padding: 18px; background: linear-gradient(135deg, #183c3b, #14243a); display: flex; align-items: center; justify-content: center; }
+    .project-visual.alt { background: linear-gradient(135deg, #293451, #392b4c); }
+    .project-visual.third { background: linear-gradient(135deg, #343b4a, #1c3a38); }
+    .mock-browser { width: 100%; max-width: 290px; border: 1px solid rgba(255,255,255,.25); border-radius: 11px; background: rgba(8,13,23,.88); overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,.25); }
+    .mock-top { padding: 8px 10px; border-bottom: 1px solid rgba(255,255,255,.12); color: #9aa9bd; font-size: .58rem; }
+    .mock-content { padding: 15px; }
+    .mock-label { color: var(--accent); font-size: .55rem; letter-spacing: .1em; }
+    .mock-title { font-weight: 800; font-size: 1.08rem; line-height: 1.1; margin: 7px 0; }
+    .mock-line { height: 5px; width: 75%; border-radius: 5px; background: #42516a; margin-top: 7px; }
+    .mock-line.short { width: 48%; }
+    .mock-button { width: 65px; height: 17px; border-radius: 5px; background: var(--accent); margin-top: 13px; }
+    .project-body { padding: 22px; }
+    .project-meta { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 16px; }
+    .project-meta span { font-size: .72rem; color: #c5d0df; background: rgba(255,255,255,.06); padding: 5px 8px; border-radius: 6px; }
+    .project-link { display: inline-block; color: var(--accent); font-size: .88rem; font-weight: 700; margin-top: 18px; }
+    .project-note { color: #8f9cb0; font-size: .78rem; margin-top: 8px; }
+    .contact-panel { display: grid; grid-template-columns: 1.2fr .8fr; gap: 30px; align-items: center; background: linear-gradient(120deg, rgba(119,224,192,.13), rgba(17,24,39,.88) 55%); border: 1px solid rgba(119,224,192,.2); border-radius: 28px; padding: 38px; }
+    .contact-panel p { color: var(--muted); max-width: 540px; }
+    .contact-actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: flex-end; }
+    footer { padding: 28px 0 38px; border-top: 1px solid var(--line); color: var(--muted); font-size: .86rem; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+    @media (max-width: 820px) {
+      .hero-grid { grid-template-columns: 1fr; gap: 34px; }
+      .hero { padding-top: 78px; }
+      .hero-card { min-height: 280px; }
+      .services-grid, .projects-grid { grid-template-columns: repeat(2, 1fr); }
+      .contact-panel { grid-template-columns: 1fr; }
+      .contact-actions { justify-content: flex-start; }
+    }
+    @media (max-width: 600px) {
+      .container { width: min(100% - 30px, var(--max)); }
+      nav { min-height: 68px; }
+      .menu-toggle { display: inline-flex; }
+      .nav-links { display: none; position: absolute; top: 68px; left: 0; right: 0; padding: 18px 22px 22px; background: #0d1422; border-bottom: 1px solid var(--line); flex-direction: column; align-items: stretch; gap: 16px; }
+      .nav-links.open { display: flex; }
+      .nav-cta { text-align: center; }
+      .hero { padding: 70px 0 58px; }
+      h1 { font-size: clamp(2.65rem, 13vw, 4rem); }
+      section { padding: 62px 0; }
+      .section-head { display: block; }
+      .section-intro { margin-top: 14px; }
+      .about-grid, .services-grid, .projects-grid { grid-template-columns: 1fr; }
+      .panel, .service-card { padding: 22px; }
+      .contact-panel { padding: 25px; }
+      .contact-actions { flex-direction: column; align-items: stretch; }
+      .contact-actions .button { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="nav-wrap">
+    <nav class="container">
+      <a class="brand" href="#home">YOUR<span>NAME</span>.</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Open navigation" aria-expanded="false">☰</button>
+      <div class="nav-links" id="navLinks">
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+        <a class="nav-cta" href="#projects">Explore my work ↗</a>
+      </div>
+    </nav>
+  </div>
+
+  <main>
+    <header class="hero container" id="home">
+      <div class="hero-grid">
+        <div>
+          <div class="eyebrow"><span class="dot"></span> Independent web developer</div>
+          <h1>I build websites that help businesses <span>stand out.</span></h1>
+          <p class="hero-copy">I create modern, responsive and easy-to-use websites that help businesses build credibility, showcase their services and connect with customers.</p>
+          <div class="hero-actions">
+            <a class="button primary" href="#projects">View my projects <span>↗</span></a>
+            <a class="button secondary" href="#contact">Let's work together</a>
+          </div>
+        </div>
+        <div class="hero-card" aria-label="Decorative code illustration">
+          <div class="code-window">
+            <div class="window-bar"><i></i><i></i><i></i></div>
+            <div class="code-lines">
+              <div><span class="blue">const</span> developer = {</div>
+              <div>&nbsp;&nbsp;design: <span class="green">"thoughtful"</span>,</div>
+              <div>&nbsp;&nbsp;code: <span class="green">"purposeful"</span>,</div>
+              <div>&nbsp;&nbsp;focus: <span class="green">"your goals"</span></div>
+              <div>};</div>
+              <div style="margin-top:12px"><span class="blue">build</span>(developer);</div>
+            </div>
+          </div>
+          <div class="card-caption">Turning ideas into useful digital experiences.</div>
+        </div>
+      </div>
+    </header>
+
+    <section id="about">
+      <div class="container">
+        <div class="section-head">
+          <div><div class="kicker">A little about me</div><h2>Building for the web,<br>with purpose.</h2></div>
+          <p class="section-intro">A short introduction helps potential clients understand who you are, how you work and what they can expect.</p>
+        </div>
+        <div class="about-grid">
+          <div class="panel">
+            <h3>Who I am</h3>
+            <p>I'm an independent web developer focused on creating clean, responsive websites for businesses and individuals. I enjoy turning ideas into clear, practical online experiences.</p>
+          </div>
+          <div class="panel">
+            <h3>Tools I work with</h3>
+            <p>My toolkit grows as I build and learn. These are the technologies used in my current development workflow.</p>
+            <div class="skills">
+              <span class="chip">HTML</span><span class="chip">CSS</span><span class="chip">JavaScript</span>
+              <span class="chip">React</span><span class="chip">Next.js</span><span class="chip">Tailwind CSS</span>
+              <span class="chip">Supabase</span><span class="chip">Git & GitHub</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="services">
+      <div class="container">
+        <div class="section-head">
+          <div><div class="kicker">What I can help with</div><h2>Services</h2></div>
+          <p class="section-intro">Practical web solutions designed around your goals and the people you want to reach.</p>
+        </div>
+        <div class="services-grid">
+          <article class="service-card"><div class="icon-box">▤</div><h3>Business websites</h3><p>Professional websites that introduce your business, explain your services and make it easy for customers to contact you.</p></article>
+          <article class="service-card"><div class="icon-box">✦</div><h3>Portfolio websites</h3><p>Personal websites that present your work, skills and experience in a clear, memorable way.</p></article>
+          <article class="service-card"><div class="icon-box">⌘</div><h3>Web applications</h3><p>Interactive web experiences that help users complete tasks and work with information online.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="container">
+        <div class="section-head">
+          <div><div class="kicker">Selected work</div><h2>Projects I've worked on</h2></div>
+          <p class="section-intro">A growing collection of projects. Each one will include a real preview and details as it becomes ready to share.</p>
+        </div>
+        <div class="projects-grid">
+          <article class="project-card">
+            <div class="project-visual">
+              <div class="mock-browser"><div class="mock-top">steam-fitness · website concept</div><div class="mock-content"><div class="mock-label">TRAIN WITH PURPOSE</div><div class="mock-title">Build strength.<br>Find your pace.</div><div class="mock-line"></div><div class="mock-line short"></div><div class="mock-button"></div></div></div>
+            </div>
+            <div class="project-body">
+              <h3>STEAM FITNESS</h3>
+              <p>A gym website project focused on presenting fitness programs, membership options and the gym's brand.</p>
+              <div class="project-meta"><span>Next.js</span><span>React</span><span>Tailwind CSS</span></div>
+              <div class="project-note">Project in development · Add the live demo when it is deployed.</div>
+            </div>
+          </article>
+          <article class="project-card">
+            <div class="project-visual alt"><div class="mock-browser"><div class="mock-top">your-next-project · preview</div><div class="mock-content"><div class="mock-label">PROJECT TWO</div><div class="mock-title">Your next<br>great project.</div><div class="mock-line"></div><div class="mock-line short"></div><div class="mock-button"></div></div></div></div>
+            <div class="project-body"><h3>Project two</h3><p>Replace this card with another completed website. Add a screenshot, a short explanation and a working demo link.</p><div class="project-meta"><span>Add your tools</span><span>Add project type</span></div><div class="project-note">Placeholder · Replace before publishing.</div></div>
+          </article>
+          <article class="project-card">
+            <div class="project-visual third"><div class="mock-browser"><div class="mock-top">your-next-project · preview</div><div class="mock-content"><div class="mock-label">PROJECT THREE</div><div class="mock-title">Made to work<br>beautifully.</div><div class="mock-line"></div><div class="mock-line short"></div><div class="mock-button"></div></div></div></div>
+            <div class="project-body"><h3>Project three</h3><p>Use this space to feature another real project and explain the problem it helps solve.</p><div class="project-meta"><span>Add your tools</span><span>Add project type</span></div><div class="project-note">Placeholder · Replace before publishing.</div></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <div class="contact-panel">
+          <div>
+            <div class="kicker">Have a project in mind?</div>
+            <h2>Let's build something useful.</h2>
+            <p>Tell me what you're looking to create. Replace the contact links with your real details so visitors can reach you directly.</p>
+          </div>
+          <div class="contact-actions">
+            <!-- Replace the example email and WhatsApp number with your real contact details. -->
+            <a class="button primary" href="mailto:your.email@example.com">Email me ↗</a>
+            <a class="button secondary" href="https://wa.me/254700000000" target="_blank" rel="noopener">WhatsApp ↗</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <span>© <span id="year"></span> Your Name. All rights reserved.</span>
+      <span>Designed & built with care.</span>
+    </div>
+  </footer>
+  <script>
+    const menuToggle = document.getElementById("menuToggle");
+    const navLinks = document.getElementById("navLinks");
+    menuToggle.addEventListener("click", () => {
+      const isOpen = navLinks.classList.toggle("open");
+      menuToggle.setAttribute("aria-expanded", String(isOpen));
+      menuToggle.textContent = isOpen ? "✕" : "☰";
+    });
+    navLinks.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("open");
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.textContent = "☰";
+      });
+    });
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
