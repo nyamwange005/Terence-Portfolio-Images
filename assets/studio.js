@@ -81,16 +81,16 @@
       const article = document.createElement("article");
       article.className = "project";
       const visual = project.image
-        ? \`<img class="project-image" src="\${project.image}" alt="\${escapeHtml(project.title)} website screenshot" loading="lazy">\`
-        : \`<div class="project-visual alt">\${escapeHtml(project.title)}</div>\`;
-      article.innerHTML = \`\${visual}
+        ? `<img class="project-image" src="${project.image}" alt="${escapeHtml(project.title)} website screenshot" loading="lazy">`
+        : `<div class="project-visual alt">${escapeHtml(project.title)}</div>`;
+      article.innerHTML = `${visual}
         <div class="project-body">
           <span class="tag">Published project</span>
-          <span class="project-category">\${escapeHtml(project.category)}</span>
-          <h3>\${escapeHtml(project.title)}</h3>
-          <p>\${escapeHtml(project.description)}</p>
-          <a class="project-link" href="\${escapeHtml(url)}" target="_blank" rel="noopener">View live website ↗</a>
-        </div>\`;
+          <span class="project-category">${escapeHtml(project.category)}</span>
+          <h3>${escapeHtml(project.title)}</h3>
+          <p>${escapeHtml(project.description)}</p>
+          <a class="project-link" href="${escapeHtml(url)}" target="_blank" rel="noopener">View live website ↗</a>
+        </div>`;
       projectsGrid.appendChild(article);
     });
     $("projectsNotice").textContent = published.length
@@ -109,17 +109,17 @@
       const row = document.createElement("div");
       row.className = "manager-row";
       const statusClass = project.status === "published" ? "published" : "";
-      row.innerHTML = \`
+      row.innerHTML = `
         <div class="manager-row-main">
-          <strong>\${escapeHtml(project.title)}</strong>
-          <p>\${escapeHtml(project.category)} · \${escapeHtml(project.description)}</p>
-          <span class="status-pill \${statusClass}">\${project.status === "published" ? "Published" : "Draft"}</span>
+          <strong>${escapeHtml(project.title)}</strong>
+          <p>${escapeHtml(project.category)} · ${escapeHtml(project.description)}</p>
+          <span class="status-pill ${statusClass}">${project.status === "published" ? "Published" : "Draft"}</span>
         </div>
         <div class="manager-row-actions">
-          <button class="btn secondary" type="button" data-action="edit" data-id="\${escapeHtml(project.id)}">Edit</button>
-          <button class="btn secondary" type="button" data-action="toggle" data-id="\${escapeHtml(project.id)}">\${project.status === "published" ? "Unpublish" : "Publish"}</button>
-          <button class="btn secondary" type="button" data-action="delete" data-id="\${escapeHtml(project.id)}">Delete</button>
-        </div>\`;
+          <button class="btn secondary" type="button" data-action="edit" data-id="${escapeHtml(project.id)}">Edit</button>
+          <button class="btn secondary" type="button" data-action="toggle" data-id="${escapeHtml(project.id)}">${project.status === "published" ? "Unpublish" : "Publish"}</button>
+          <button class="btn secondary" type="button" data-action="delete" data-id="${escapeHtml(project.id)}">Delete</button>
+        </div>`;
       list.appendChild(row);
     });
   }
@@ -332,7 +332,7 @@
     }
 
     if (button.dataset.action === "delete") {
-      if (!confirm(\`Delete "\${project.title}" from the shared portfolio?\`)) return;
+      if (!confirm(`Delete "${project.title}" from the shared portfolio?`)) return;
       try {
         await apiRequest("/api/projects", {
           method: "POST",
