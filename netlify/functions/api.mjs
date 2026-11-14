@@ -1,10 +1,10 @@
 import { getStore } from "@netlify/blobs";
-import { createHmac, timingSafeEqual, randomBytes } from "node:crypto";
+import { createHmac, timingSafeEqual, randomBytes, randomUUID } from "node:crypto";
 
 const STORE_NAME = "terence-web-studio-projects";
 const COOKIE_NAME = "tws_admin_session";
 const SESSION_SECONDS = 8 * 60 * 60;
-const MAX_BODY_BYTES = 2_000_000;
+const MAX_BODY_BYTES = 2_500_000;
 
 function json(data, status = 200, headers = {}) {
   return new Response(JSON.stringify(data), {
@@ -63,11 +63,11 @@ function safeProject(input) {
     url = parsed.href;
   } catch { return null; }
   const image = typeof input.image === "string" ? input.image : "";
-  if (image && (!image.startsWith("data:image/jpeg;base64,") || image.length > 1_500_000)) return null;
+  if (image && (!image.startsWith("data:image/jpeg;base64,") || image.length > 1_800_000)) return null;
   const status = input.status === "published" ? "published" : "draft";
   if (!title || !description) return null;
   return {
-    id: String(input.id || crypto.randomUUID()).slice(0, 80),
+    id: String(input.id || randomUUID()).slice(0, 80),
     title, category, description, url, image, status,
     updatedAt: Number.isFinite(Number(input.updatedAt)) ? Number(input.updatedAt) : Date.now()
   };
@@ -101,8 +101,11 @@ export default async (request, context) => {
   if (contentLength > MAX_BODY_BYTES) return json({ error: "Request is too large. Please use a smaller screenshot." }, 413);
 
   let body;
-  try { body = await request.json(); }
-  catch { return json({ error: "Invalid request." }, 400); }
+  try {
+    const rawBody = await request.text();
+    if (rawBody.length > MAX_BODY_BYTES) return json({ error: "Request is too large. Please use a smaller screenshot." }, 413);
+    body = JSON.parse(rawBody);
+  } catch { return json({ error: "Invalid request." }, 400); }
 
   if (body.action === "login") {
     const supplied = String(body.password || "");
