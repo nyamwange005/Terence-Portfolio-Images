@@ -1,0 +1,9 @@
+{
+  "name": "terence-web-studio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Terence Web Studio standalone portfolio with Netlify shared project storage",
+  "dependencies": {
+    "@netlify/blobs": "^10.0.0"
+  }
+}
